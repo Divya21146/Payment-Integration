@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return view('login');
+})->name('login');
 
 Route::get('/login', [AuthManager::class, 'login'])->name('login');
 
@@ -16,7 +17,10 @@ Route::post('/registerauth', [AuthManager::class, 'registrationPost'])->name('re
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/profile', function() {
-        return "hi";
-    });
+    Route::get('/', function() {
+        return view('welcome');
+    })->name('home');
+    
+    Route::post('/pay', [PaymentController::class, 'initiatePayment'])->name('pay');
+    Route::post('/payment-callback', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
 });

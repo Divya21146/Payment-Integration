@@ -41,11 +41,13 @@ class AuthManager extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|regex:/^[0-9]{10}$/',
             'password' => 'required'
         ]);
 
         $data['name'] = $request->name;
         $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
         $data['password'] = Hash::make($request->password);
 
         $user = User::create($data);
@@ -56,7 +58,7 @@ class AuthManager extends Controller
     }
 
     function logout() {
-        Session::flush();
+        // Session::flush();
         Auth::logout();
         return redirect(route('login'));
     }

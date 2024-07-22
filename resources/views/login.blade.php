@@ -28,6 +28,9 @@
                 <input name="password" type="password" class="form-control">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="my-3">
+                Not registered? <a href="{{route('registration')}}">click to registration</a>
+            </div>
         </form>
     </div>
 
